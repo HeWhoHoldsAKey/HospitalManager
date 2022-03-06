@@ -42,7 +42,8 @@ public class LoginPage {
 		txtPassword = new Text(shlLogin, SWT.BORDER | SWT.PASSWORD);
 		txtPassword.setText("Password");
 		txtPassword.setBounds(127, 116, 165, 21);
-
+		txtPassword.setEchoChar('*');
+		
 		Label lblLoginPannel = new Label(shlLogin, SWT.NONE);
 		lblLoginPannel.setAlignment(SWT.CENTER);
 		lblLoginPannel.setBounds(170, 10, 75, 15);
