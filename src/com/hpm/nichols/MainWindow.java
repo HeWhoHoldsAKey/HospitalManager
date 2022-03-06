@@ -1,12 +1,9 @@
 package com.hpm.nichols;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class MainWindow {
-
-	protected Shell shell;
 
 	/**
 	 * Launch the application.
@@ -26,7 +23,10 @@ public class MainWindow {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
+		Shell shell = new Shell();
+		shell.setSize(450, 300);
+		shell.setText("SWT Application");
+
 		shell.open();
 		shell.layout();
 		while (!shell.isDisposed()) {
@@ -34,16 +34,6 @@ public class MainWindow {
 				display.sleep();
 			}
 		}
-	}
-
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
-
 	}
 
 }
