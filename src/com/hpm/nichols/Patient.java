@@ -1,6 +1,11 @@
 package com.hpm.nichols;
 
-public class Patient {
+public class Patient implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4620745942752279887L;
 	private String firstName;
 	private String lastName;
 	private int roomNumber;
@@ -9,6 +14,7 @@ public class Patient {
 	private String symptoms;
 	private boolean quarentined;
 	private int safetyLevel;
+	private String drNotes;
 
 	public Patient(String firstName, String lastName, int roomNumber, int patientID, String insuranceInfo,
 			String symptoms, boolean quarentined, int safetyLevel) {
@@ -20,47 +26,80 @@ public class Patient {
 		this.symptoms = symptoms;
 		this.quarentined = quarentined;
 		this.safetyLevel = safetyLevel;
+		this.drNotes = "n/a";
 
 	}
 
 	public String getFirstName() {
-		// TODO Auto-generated method stub
 		return firstName;
 	}
 
 	public String getLastName() {
-		// TODO Auto-generated method stub
 		return lastName;
 	}
 
 	public int getRoomNumber() {
-		// TODO Auto-generated method stub
 		return roomNumber;
 	}
 
 	public int getPatientId() {
-		// TODO Auto-generated method stub
 		return patientID;
 	}
 
 	public String getInsuranceInfo() {
-		// TODO Auto-generated method stub
 		return insuranceInfo;
 	}
 
 	public String getSymptoms() {
-		// TODO Auto-generated method stub
 		return symptoms;
 	}
 
 	public boolean getQuarentined() {
-		// TODO Auto-generated method stub
 		return quarentined;
 	}
 
 	public int getSafetyLevel() {
-		// TODO Auto-generated method stub
 		return safetyLevel;
+	}
+
+	public String getDrNotes() {
+		return drNotes;
+	}
+
+	public void setFirstName(String fn) {
+		this.firstName = fn;
+	}
+
+	public void setLastName(String ln) {
+		this.lastName = ln;
+	}
+
+	public void setRoomNumber(int rn) {
+		this.roomNumber = rn;
+	}
+
+	public void setPatientId(int pid) {
+		this.patientID = pid;
+	}
+
+	public void setInsuranceInfo(String insInfo) {
+		this.insuranceInfo = insInfo;
+	}
+
+	public void setSymptoms(String sympt) {
+		this.symptoms = sympt;
+	}
+
+	public void setQuarentined(boolean quarentine) {
+		this.quarentined = quarentine;
+	}
+
+	public void setSafetyLevel(int sl) {
+		this.safetyLevel = sl;
+	}
+
+	public void setDrNotes(String drNotes) {
+		this.drNotes = drNotes;
 	}
 
 }

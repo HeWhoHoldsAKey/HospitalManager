@@ -43,7 +43,7 @@ public class LoginPage {
 		txtPassword.setText("Password");
 		txtPassword.setBounds(127, 116, 165, 21);
 		txtPassword.setEchoChar('*');
-		
+
 		Label lblLoginPannel = new Label(shlLogin, SWT.NONE);
 		lblLoginPannel.setAlignment(SWT.CENTER);
 		lblLoginPannel.setBounds(170, 10, 75, 15);
@@ -60,6 +60,12 @@ public class LoginPage {
 		Label lblPassword = new Label(shlLogin, SWT.NONE);
 		lblPassword.setBounds(47, 119, 55, 15);
 		lblPassword.setText("Password");
+		
+		Label lblWrongCreds = new Label(shlLogin, SWT.NONE);
+		lblWrongCreds.setAlignment(SWT.CENTER);
+		lblWrongCreds.setBounds(127, 44, 165, 15);
+		lblWrongCreds.setText("Wrong Username Or Password");
+		lblWrongCreds.setVisible(false);
 
 		btnLogin.addSelectionListener(new SelectionListener() {
 
@@ -83,6 +89,7 @@ public class LoginPage {
 					System.out.println("Logging In");
 					shlLogin.close();
 				} else {
+					lblWrongCreds.setVisible(true);
 					System.out.println("Wrong Credentials");
 				}
 
@@ -100,7 +107,7 @@ public class LoginPage {
 			}
 		}
 	}
-	
+
 	public boolean getLoggedIn() {
 		return loggedIn;
 	}
