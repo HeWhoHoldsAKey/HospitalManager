@@ -3,8 +3,7 @@ package com.hpm.nichols;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import java.util.HashMap;
-
+import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -29,7 +28,7 @@ public class MainWindow {
 			"Quarentined", "Safety Level" };
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	private Table patientTable;
-	private HashMap<Integer, Patient> patients = new HashMap<Integer, Patient>();
+	private ArrayList<Patient> patients = new ArrayList<Patient>();
 	private Text txtPtFirstName;
 	private Text txtPtLastName;
 	private Text txtInsuranceInfo;
@@ -46,6 +45,7 @@ public class MainWindow {
 	 * @wbp.parser.entryPoint
 	 */
 	public void open() {
+		System.out.println("It opened...");
 		Display display = Display.getDefault();
 		Shell shlHospitalmanager = new Shell();
 		shlHospitalmanager.setSize(920, 1080);
@@ -195,14 +195,14 @@ public class MainWindow {
 
 		mntmSave.setText("Save");
 
-		patients.putAll(ProjectIo.loadPatients());
+		patients.addAll(ProjectIo.loadPatients());
 
 		for (String i : titles) {
 			TableColumn column = new TableColumn(patientTable, SWT.NULL);
 			column.setText(i);
 		}
-
-		for (Patient i : patients.values()) {
+		int l = 0;
+		for (Patient i : patients) {
 			TableItem item = new TableItem(patientTable, SWT.NULL);
 			item.setText(0, i.getFirstName());
 			item.setText(1, i.getLastName());
@@ -212,8 +212,27 @@ public class MainWindow {
 			item.setText(5, i.getSymptoms());
 			item.setText(6, String.valueOf(i.getQuarentined()));
 			item.setText(7, String.valueOf(i.getSafetyLevel()));
-		}
+			
+			
+			
+			TableItem[] items = patientTable.getItems();
+			
+			if(items[l].getBounds().intersects(shlHospitalmanager.getBounds())) {
+				System.out.println("Column is visible?");
+			}
 
+			System.out.println(items[l].getBounds().toString());
+			l++;
+			
+		}
+		
+		System.out.println("Bounds:" + shlHospitalmanager.getBounds().toString());
+		
+		
+		
+		
+		
+		
 		for (int loopIndex = 0; loopIndex < titles.length; loopIndex++) {
 			patientTable.getColumn(loopIndex).pack();
 		}
@@ -281,7 +300,7 @@ public class MainWindow {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 
-				ProjectIo.savePatients(patients, hashKey, txtPtFirstName.getText(), txtPtLastName.getText(),
+				ProjectIo.savePatients(patients, txtPtFirstName.getText(), txtPtLastName.getText(),
 						spinnerRoomNum.getSelection(), spinnerPatientId.getSelection(), txtInsuranceInfo.getText(),
 						txtSymptoms.getText(), btnIsQuarentined.getSelection(), spinnerSafetyLevel.getSelection(),
 						txtDrnotes.getText());
@@ -301,9 +320,10 @@ public class MainWindow {
 	}
 
 	public void updateTable() {
+		long startTime = System.currentTimeMillis();
 		patientTable.removeAll();
-		patients.putAll(ProjectIo.loadPatients());
-		for (Patient i : patients.values()) {
+		patients.addAll(ProjectIo.loadPatients());
+		for (Patient i : patients) {
 			TableItem item = new TableItem(patientTable, SWT.NULL);
 			item.setText(0, i.getFirstName());
 			item.setText(1, i.getLastName());
@@ -313,8 +333,13 @@ public class MainWindow {
 			item.setText(5, i.getSymptoms());
 			item.setText(6, String.valueOf(i.getQuarentined()));
 			item.setText(7, String.valueOf(i.getSafetyLevel()));
-		}
 
+		}
+		
+		long endTime = System.currentTimeMillis();
+		long timeTaken = (endTime - startTime) / 1000;
+
+		System.out.println("It took " + timeTaken + " Seconds to Yeah");
 		// patientTable.redraw();
 	}
 }

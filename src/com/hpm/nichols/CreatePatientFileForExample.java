@@ -5,17 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.TableItem;
 
 public class CreatePatientFileForExample {
 
 	public static void main(String[] args) {
 		System.out.println("Creating Example File");
-		HashMap<Integer, Patient> patientMap = new HashMap<Integer, Patient>();
+		ArrayList<Patient> patientMap = new ArrayList<Patient>();
 
 		try {
 			File firstNames = new File("randFolder/firstNames.txt");
@@ -66,7 +63,7 @@ public class CreatePatientFileForExample {
 				}
 
 				Patient p = new Patient(fn, ln, randA, randB, "None", ms, qua, randC);
-				patientMap.put(i, p);
+				patientMap.add(p);
 
 			}
 
@@ -79,7 +76,7 @@ public class CreatePatientFileForExample {
 			e1.printStackTrace();
 		}
 
-		for (Patient i : patientMap.values()) {
+		for (Patient i : patientMap) {
 			System.out.println(i.getSymptoms());
 		}
 

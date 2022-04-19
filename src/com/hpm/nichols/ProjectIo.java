@@ -1,24 +1,25 @@
 package com.hpm.nichols;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class ProjectIo {
-	public static HashMap<Integer, Patient> patientMap = new HashMap<Integer, Patient>();
+	public static ArrayList<Patient> patientList = new ArrayList<Patient>();
 
 	@SuppressWarnings("unchecked")
-	public static Map<Integer, Patient> loadPatients() {
+	public static ArrayList<Patient> loadPatients() {
 
 		try {
 			FileInputStream fileIn = new FileInputStream("patientInfoFolder/patients.ser");
-			ObjectInputStream mapIn = new ObjectInputStream(fileIn);
+			ObjectInputStream mapIn = new ObjectInputStream(new BufferedInputStream(fileIn));
 
-			patientMap.putAll((Map<? extends Integer, ? extends Patient>) mapIn.readObject());
+			patientList.addAll((ArrayList<Patient>) mapIn.readObject());
 
 			mapIn.close();
 
@@ -27,7 +28,7 @@ public class ProjectIo {
 			e.printStackTrace();
 		}
 
-		for (Patient i : patientMap.values()) {
+		for (Patient i : patientList) {
 
 			if (i.getSymptoms() == null) {
 				System.out.println(i.getSymptoms());
@@ -36,25 +37,26 @@ public class ProjectIo {
 
 		}
 
-		return patientMap;
+		return patientList;
 	}
 
-	public static void savePatients(HashMap<Integer, Patient> map, int hashKey, String firstName, String lastName,
-			int roomNumber, int patientID, String insuranceInfo, String symptoms, boolean quarentined, int safetyLevel,
-			String drNote) {
-		patientMap.putAll(map);
+	public static void savePatients(ArrayList<Patient> map, String firstName, String lastName, int roomNumber,
+			int patientID, String insuranceInfo, String symptoms, boolean quarentined, int safetyLevel, String drNote) {
+		long startTime = System.currentTimeMillis();
+		
+		patientList.addAll(map);
 		Patient p = new Patient(firstName, lastName, roomNumber, patientID, insuranceInfo, symptoms, quarentined,
 				safetyLevel);
 		p.setDrNotes(drNote);
-		patientMap.put(hashKey, p);
+		patientList.add(p);
 
 		try {
 
 			FileOutputStream writeFile = new FileOutputStream("patientInfoFolder/patients.ser");
+			
+			ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(writeFile));
 
-			ObjectOutputStream out = new ObjectOutputStream(writeFile);
-
-			out.writeObject(patientMap);
+			out.writeObject(patientList);
 
 			out.close();
 			writeFile.close();
@@ -63,6 +65,9 @@ public class ProjectIo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		long endTime = System.currentTimeMillis();
+		long timeTaken = (endTime - startTime) / 1000;
+		System.out.println("It took " + timeTaken + " Seconds to save");
 	}
 
 }
