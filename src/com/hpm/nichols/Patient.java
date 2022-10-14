@@ -2,10 +2,15 @@ package com.hpm.nichols;
 
 public class Patient implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
+	// This is a patient object which is serialized so that way an object can be
+	// stored in a file.
+
+	// This line is generated when the project is ran by java
+
 	private static final long serialVersionUID = -4620745942752279887L;
+
+	// This is the basic patient info that is used
+
 	private String firstName;
 	private String lastName;
 	private int roomNumber;
@@ -29,6 +34,11 @@ public class Patient implements java.io.Serializable {
 		this.drNotes = "n/a";
 
 	}
+
+	// There is a way to make this more efficient using an array but it would be
+	// less specific. Its a use vs cost scenario.
+
+	// This is where you can get patient information
 
 	public String getFirstName() {
 		return firstName;
@@ -65,6 +75,8 @@ public class Patient implements java.io.Serializable {
 	public String getDrNotes() {
 		return drNotes;
 	}
+
+	// From here is simple methods to set the patient information
 
 	public void setFirstName(String fn) {
 		this.firstName = fn;

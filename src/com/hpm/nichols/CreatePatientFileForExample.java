@@ -82,7 +82,9 @@ public class CreatePatientFileForExample {
 
 		try {
 
-			FileOutputStream writeFile = new FileOutputStream("patientInfoFolder/patients.ser");
+			File patients = new File("patientInfoFolder/patients.ser");
+
+			FileOutputStream writeFile = new FileOutputStream(patients);
 
 			ObjectOutputStream out = new ObjectOutputStream(writeFile);
 
